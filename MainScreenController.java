@@ -1,5 +1,6 @@
 /*
 Ruben Alvarez Reyes
+Javier Felix
 CSCV-335 Spring 2020
 Capstone: 4-2-1
  */
@@ -27,27 +28,27 @@ public class MainScreenController {
     private MainScreenModel model;
 
     @FXML
-    Label dieStatusLabel;
+    private Label dieStatusLabel;
     @FXML
-    Label player1ScoreLabel;
+    private Label player1ScoreLabel;
     @FXML
-    Label player2ScoreLabel;
+    private Label player2ScoreLabel;
     @FXML
-    ImageView die1Image;
+    private ImageView die1Image;
     @FXML
-    ImageView die2Image;
+    private ImageView die2Image;
     @FXML
-    ImageView die3Image;
+    private ImageView die3Image;
     @FXML
-    Button rollButton;
+    private Button rollButton;
     @FXML
-    Button doneButton;
+    private Button doneButton;
     @FXML
-    TextFlow feedbackLabel;
+    private TextFlow feedbackLabel;
     @FXML
-    Label playerTurnLabel;
+    private Label playerTurnLabel;
     @FXML
-    Label currentRoundLabel;
+    private Label currentRoundLabel;
 
     public MainScreenController() {
         model = new MainScreenModel();
