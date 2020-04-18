@@ -10,8 +10,10 @@ For the University of Arizona CSCV-335 spring 2020 capstone project
 
 ### Screenshots:
 Start screen
+
 ![screenshot1](screenshots/startMenu.png)
 
 Main screen
+
 ![screenshot2](screenshots/mainScreen.png)
 
