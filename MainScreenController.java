@@ -6,10 +6,17 @@ Capstone: 4-2-1
  */
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
 
 import java.util.Random;
@@ -17,7 +24,7 @@ import java.util.Random;
 
 public class MainScreenController {
 
-    private final static String imgPath = "asset\\img\\%s.png";
+    private final static String imgPath = "asset/img/%s.png";
     private final static Image[] dieImages = {
             new Image(String.format(imgPath, 1)),
             new Image(String.format(imgPath, 2)),
@@ -27,9 +34,17 @@ public class MainScreenController {
             new Image(String.format(imgPath, 6)),
             new Image(String.format(imgPath, 7))
     };
+    private final static String[] sndPaths = {
+            "asset/snd/roll_die.wav",
+            "asset/snd/switch_die.wav"
+    };
 
-    private MainScreenModel model;
+    private final AudioClip rollDieSnd;
+    private final AudioClip switchDieSnd;
+    private final MainScreenModel model;
 
+    @FXML
+    private GridPane root;
     @FXML
     private Label dieStatusLabel;
     @FXML
@@ -59,15 +74,23 @@ public class MainScreenController {
 
     public MainScreenController() {
         model = new MainScreenModel();
+        rollDieSnd = new AudioClip(getClass().getResource(sndPaths[0]).toString());
+        switchDieSnd = new AudioClip(getClass().getResource(sndPaths[1]).toString());
     }
 
     @FXML
     public void initialize() {
         newTurn();
+//        set colors
+        root.setBackground(new Background(new BackgroundFill(Color.rgb(20, 158, 66), CornerRadii.EMPTY, Insets.EMPTY)));
+        rollButton.setBackground(new Background(new BackgroundFill(Color.rgb(226, 193, 29), CornerRadii.EMPTY, Insets.EMPTY)));
+        doneButton.setBackground(new Background(new BackgroundFill(Color.rgb(226, 29, 62), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
     public void onRollPressed() {
+//        play sound
+        rollDieSnd.play();
 //        set roll counter text
         int playerTurn = model.getPlayerTurn();
         String rollText = String.format("Roll: %d", model.getCurrentPlayerRollCount() + 1);
@@ -95,6 +118,7 @@ public class MainScreenController {
 
     @FXML
     public void onDonePressed() {
+        switchDieSnd.play();
         model.switchPlayers();
         newTurn();
     }
