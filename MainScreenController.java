@@ -8,10 +8,7 @@ Capstone: 4-2-1
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -36,13 +33,18 @@ public class MainScreenController {
             new Image(String.format(imgPath, 6)),
             new Image(String.format(imgPath, 7))
     };
+    private final static String sndPath = "asset/snd/%s.wav";
     private final static String[] sndPaths = {
-            "asset/snd/roll_die.wav",
-            "asset/snd/switch_die.wav"
+            String.format(sndPath, "roll_die"),
+            String.format(sndPath, "switch_die"),
+            String.format(sndPath, "game_over"),
+            String.format(sndPath, "win")
     };
 
     private final AudioClip rollDieSnd;
     private final AudioClip switchDieSnd;
+    private final AudioClip gameOverSnd;
+    private final AudioClip winSnd;
     private final MainScreenModel model;
     private boolean resetted;
 
@@ -85,6 +87,8 @@ public class MainScreenController {
         model = new MainScreenModel();
         rollDieSnd = new AudioClip(getClass().getResource(sndPaths[0]).toString());
         switchDieSnd = new AudioClip(getClass().getResource(sndPaths[1]).toString());
+        gameOverSnd = new AudioClip(getClass().getResource(sndPaths[2]).toString());
+        winSnd = new AudioClip(getClass().getResource(sndPaths[3]).toString());
     }
 
     @FXML
@@ -118,6 +122,10 @@ public class MainScreenController {
         int playerRollCount = model.getPlayerRollCount(playerTurn) + 1;
         model.setDie(rollDie(), rollDie(), rollDie());
 
+//        update score labels
+        player1ScoreLabel.setText(String.format("Points: %d", model.getPlayerScore(0)));
+        player2ScoreLabel.setText(String.format("Points: %d", model.getPlayerScore(1)));
+
 //        update feedback label
         String feedbackText = String.format("Player %d %s roll rolled: %d-%d-%d!",
                 playerTurn + 1, ordinal(playerRollCount),
@@ -125,7 +133,6 @@ public class MainScreenController {
         updateFeedbackLabel(feedbackText);
 
 //        update main view
-        System.out.println(model.getDie(0));
         if (playerTurn == model.getPlayerTurn()) {
 //          set die label text
             dieStatusLabel.setText(String.format("%d-%d-%d", model.getDie(0), model.getDie(1), model.getDie(2)));
@@ -136,6 +143,24 @@ public class MainScreenController {
         } else {
             newTurn();
             updateFeedbackLabel(String.format("Player %d turn now!", model.getPlayerTurn() + 1));
+        }
+        if (model.getCurrentRound() - 1 == MainScreenModel.MAX_ROUNDS) {
+            winSnd.play();
+            gameOverSnd.play();
+//            user cannot interact anymore
+            for (ButtonBase buttonBase : new ButtonBase[]{rollButton, doneButton, keepDie1Chk, keepDie2Chk, keepDie3Chk}) {
+                buttonBase.setDisable(true);
+            }
+            keepDie1Chk.setSelected(false);
+            keepDie2Chk.setSelected(false);
+            keepDie3Chk.setSelected(false);
+//            update feedback label and header
+            String winText = String.format("Player %d won!!!", model.getWinner() + 1);
+            dieStatusLabel.setText(winText);
+            updateFeedbackLabel(winText);
+        } else {
+//            update current round label
+            currentRoundLabel.setText(String.format("Current round: %d", model.getCurrentRound()));
         }
     }
 
@@ -151,7 +176,7 @@ public class MainScreenController {
             model.switchPlayers();
             newTurn();
         } else {
-            updateFeedbackLabel("Must first roll the die!");
+            updateFeedbackLabel("You must first roll the die!");
         }
     }
 
@@ -162,7 +187,7 @@ public class MainScreenController {
         String feedbackText;
 
         if (resetted) {
-            feedbackText = "Must first roll the die!";
+            feedbackText = "You must first roll the die!";
             checkBox.setSelected(false);
         } else {
 
@@ -177,13 +202,11 @@ public class MainScreenController {
                 index = 2;
             }
 
-            if (!model.setSelectedDie(index, selected)) {
-                checkBox.setSelected(false);
-                feedbackText = "Can only keep two die at the most!";
-            } else {
-                feedbackText = String.format("Player %d decided to %s die %d!",
-                        model.getPlayerTurn() + 1, (selected) ? "keep" : "not keep", index + 1);
-            }
+            model.setSelectedDie(index, selected);
+
+            feedbackText = String.format("Player %d decided to %s die %d!",
+                    model.getPlayerTurn() + 1, (selected) ? "keep" : "not keep", index + 1);
+
         }
         updateFeedbackLabel(feedbackText);
     }
