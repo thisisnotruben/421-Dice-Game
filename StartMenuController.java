@@ -3,6 +3,21 @@ Ruben Alvarez Reyes
 Javier Felix
 CSCV-335 Spring 2020
 Capstone: 4-2-1
+
+Owner: Javier Felix
+Javier worked on all of this
+
+contains:
+
+    fields:
+         private GridPane root
+         private Button startGameButton
+         private static final String startGameSndPath
+         private final AudioClip startGameSnd
+
+    methods:
+        public void initialize()
+        public void onStartGamePressed(ActionEvent)
  */
 
 import javafx.event.ActionEvent;

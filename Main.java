@@ -3,6 +3,17 @@ Ruben Alvarez Reyes
 Javier Felix
 CSCV-335 Spring 2020
 Capstone: 4-2-1
+
+Owner: Javier Felix
+Javier worked on all of this
+
+contains:
+
+    fields:
+        private static final String backgroundMusicPath
+
+    methods:
+        public void start(Stage)
  */
 
 import javafx.application.Application;

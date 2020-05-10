@@ -3,6 +3,37 @@ Ruben Alvarez Reyes
 Javier Felix
 CSCV-335 Spring 2020
 Capstone: 4-2-1
+
+Owner: Ruben Alvarez Reyes
+Ruben worked on all of this
+
+contains:
+
+    fields:
+        public static final int MAX_DIE
+        public static final int MAX_ROLLS
+        public static final int MAX_PLAYERS
+        public static final int MAX_ROUNDS
+        private int[][] die
+        private int[][] score
+        private int[] playerRolls
+        private boolean[] dieSelection
+        private int currentPlayer
+        private int currentRound
+
+    methods:
+        public void setDie(int, int, int)
+        public int getDie(int)
+        public int getDie(int, int)
+        public void switchPlayers()
+        public int getPlayerTurn()
+        public int getPlayerRollCount(int)
+        public void setSelectedDie(int, boolean)
+        public boolean getSelectedDie(int)
+        public int getPlayerScore(int)
+        public int getCurrentRound()
+        public int getWinner()
+        public int calculateScore(int)
  */
 
 import java.util.Arrays;
@@ -53,7 +84,24 @@ public class MainScreenModel {
         if ((currentPlayer == 1 && playerRolls[1] == playerRolls[0]) || MAX_ROLLS == playerRolls[currentPlayer]) {
 //            apply points when player 2 is done
             if (currentPlayer == 1) {
-                score[(calculateScore(0) >= calculateScore(1)) ? 0 : 1][currentRound++]++;
+                int winner = (calculateScore(0) >= calculateScore(1)) ? 0 : 1;
+                score[winner][currentRound++]++;
+
+//                whoever wins becomes player 1
+                if (winner == 1) {
+//                    store player 2 data into temp
+                    int[] tempDie = die[1];
+                    int[] tempScore = score[1];
+                    int tempPlayerRolls = playerRolls[1];
+//                    set player 1 data to player 2 slot
+                    die[1] = die[0];
+                    score[1] = score[0];
+                    playerRolls[1] = playerRolls[0];
+//                    set player 2 data to player 1 slot
+                    die[0] = tempDie;
+                    score[0] = tempScore;
+                    playerRolls[0] = tempPlayerRolls;
+                }
             }
             switchPlayers();
         }

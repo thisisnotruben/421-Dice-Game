@@ -3,6 +3,51 @@ Ruben Alvarez Reyes
 Javier Felix
 CSCV-335 Spring 2020
 Capstone: 4-2-1
+
+Owner: Ruben Alvarez Reyes
+Ruben worked on all of this
+
+contains:
+    
+    fields:
+        private final static String imgPath
+        private final static Image[] dieImages
+        private final static String sndPath
+        private final static String[] sndPaths
+        private final AudioClip rollDieSnd
+        private final AudioClip switchDieSnd
+        private final AudioClip gameOverSnd
+        private final AudioClip winSnd
+        private final AudioClip diceKeepSnd
+        private final MainScreenModel model
+        private boolean resetted;
+        private GridPane root
+        private Label dieStatusLabel
+        private Label player1ScoreLabel
+        private Label player1RollLabel
+        private Label player2ScoreLabel
+        private Label player2RollLabel
+        private ImageView die1Image
+        private ImageView die2Image
+        private ImageView die3Image
+        private Button rollButton
+        private Button doneButton
+        private Button die1Button
+        private Button die2Button
+        private Button die3Button
+        private TextArea feedbackTextArea
+        private Label playerTurnLabel
+        private Label currentRoundLabel
+        
+    methods:
+        public void initialize()
+        public void onRollPressed()
+        public void onDonePressed()
+        public void onKeepDie(ActionEvent)
+        public private int rollDie()
+        public private void newTurn()
+        public void updateFeedbackLabel(String)
+        public static String ordinal(int)
  */
 
 import javafx.event.ActionEvent;
