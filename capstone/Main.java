@@ -16,6 +16,8 @@ contains:
         public void start(Stage)
  */
 
+package capstone;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,10 +38,14 @@ public class Main extends Application {
         backgroundMusicSnd.play();
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent startMenu = FXMLLoader.load(getClass().getResource("StartMenuView.fxml"));
         primaryStage.setTitle("4-2-1");
+        Parent startMenu = FXMLLoader.load(getClass().getResource("StartMenuView.fxml"));
         primaryStage.setScene(new Scene(startMenu));
         primaryStage.show();
     }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainScreenController">
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="capstone.MainScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -107,7 +107,7 @@
          <graphic>
             <ImageView fx:id="die1Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@asset/img/4.png" />
+                  <Image url="@../asset/img/4.png" />
                </image>
             </ImageView>
          </graphic>
@@ -116,7 +116,7 @@
          <graphic>
             <ImageView fx:id="die2Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@asset/img/2.png" />
+                  <Image url="@../asset/img/2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -125,7 +125,7 @@
          <graphic>
             <ImageView fx:id="die3Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@asset/img/1.png" />
+                  <Image url="@../asset/img/1.png" />
                </image>
             </ImageView>
          </graphic>

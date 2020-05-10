@@ -36,6 +36,8 @@ contains:
         public int calculateScore(int)
  */
 
+package capstone;
+
 import java.util.Arrays;
 import java.util.stream.IntStream;
 

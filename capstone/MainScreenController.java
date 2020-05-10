@@ -50,6 +50,8 @@ contains:
         public static String ordinal(int)
  */
 
+package capstone;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -70,14 +72,14 @@ import java.util.Random;
 public class MainScreenController {
 
     private final static String imgPath = "asset/img/%s.png";
-    private final static Image[] dieImages = {
-            new Image(String.format(imgPath, 1)),
-            new Image(String.format(imgPath, 2)),
-            new Image(String.format(imgPath, 3)),
-            new Image(String.format(imgPath, 4)),
-            new Image(String.format(imgPath, 5)),
-            new Image(String.format(imgPath, 6)),
-            new Image(String.format(imgPath, 7))
+    private final Image[] dieImages = {
+            new Image(getClass().getResource(String.format(imgPath, 1)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 2)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 3)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 4)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 5)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 6)).toString()),
+            new Image(getClass().getResource(String.format(imgPath, 7)).toString())
     };
     private final static String sndPath = "asset/snd/%s.wav";
     private final static String[] sndPaths = {
