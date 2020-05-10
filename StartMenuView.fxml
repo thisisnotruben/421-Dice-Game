@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -26,10 +27,13 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="Game rules listed here" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="The rules are as follows:&#10;&#10;• Number of players:&#10;    o Normal rules: at least 2 players&#10;    o We will have two players only. Both of the players will choose their behavior, i.e.&#10;       no AI involved.&#10;&#10;• For each round:&#10;    o Each player can roll the dice at most 3 times. This is determined by the first player.&#10;    o The first player rolls the dice and choose to keep 1, 2, or all 3 dice. The number of  &#10;       times the first player rolls is important at the subsequent player can roll at most &#10;       the same number of times as the first player.&#10;    o The other player rolls the dice and chooses to keep 1, 2 or all 3 dice or roll again&#10;       if they can. (this depends on the number of rolls the first player used for that   &#10;       round).&#10;    o Whoever has the highest scores wins the round (and becomes the first player for&#10;       the following round) and gets one point.&#10;&#10;Scores from highest to lowest:&#10;     Highest: 4-2-1&#10;     3 of a kind (666&gt;xxx&gt;111)&#10;     2 of a kind + one dice 665 is the highest and 112 is the lowest&#10;     No matches 654 is highest, 653…. 321&#10;     We won’t assess straights as different category.&#10;     In case of a tie, the first player wins. (this is an oversimplication. Usually&#10;       the wager doubles on the following round)&#10;&#10;• Following round: The person who won the current round becomes the first player for  &#10;   the following round.&#10;&#10;• Number of rounds:&#10;    o This varies. We are going to do 11 rounds at all times.&#10;    o Each win is worth the same number of points (this is an oversimplification,&#10;       usually it is 7 points (421) to 1 point (no matches)).&#10;&#10;• Note: remember that 124 is the same 421, and it is the same as 412&#10;&#10;• Winner:&#10;    o Whoever has won the most wins&#10;" wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <font>
             <Font size="14.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </GridPane.margin>
       </TextArea>
       <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#onStartGamePressed" prefHeight="48.0" prefWidth="96.0" text="Start Game" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>

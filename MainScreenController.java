@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -38,13 +39,15 @@ public class MainScreenController {
             String.format(sndPath, "roll_die"),
             String.format(sndPath, "switch_die"),
             String.format(sndPath, "game_over"),
-            String.format(sndPath, "win")
+            String.format(sndPath, "win"),
+            String.format(sndPath, "die_keep")
     };
 
     private final AudioClip rollDieSnd;
     private final AudioClip switchDieSnd;
     private final AudioClip gameOverSnd;
     private final AudioClip winSnd;
+    private final AudioClip diceKeepSnd;
     private final MainScreenModel model;
     private boolean resetted;
 
@@ -71,17 +74,17 @@ public class MainScreenController {
     @FXML
     private Button doneButton;
     @FXML
+    private Button die1Button;
+    @FXML
+    private Button die2Button;
+    @FXML
+    private Button die3Button;
+    @FXML
     private TextArea feedbackTextArea;
     @FXML
     private Label playerTurnLabel;
     @FXML
     private Label currentRoundLabel;
-    @FXML
-    private CheckBox keepDie1Chk;
-    @FXML
-    private CheckBox keepDie2Chk;
-    @FXML
-    private CheckBox keepDie3Chk;
 
     public MainScreenController() {
         model = new MainScreenModel();
@@ -89,6 +92,7 @@ public class MainScreenController {
         switchDieSnd = new AudioClip(getClass().getResource(sndPaths[1]).toString());
         gameOverSnd = new AudioClip(getClass().getResource(sndPaths[2]).toString());
         winSnd = new AudioClip(getClass().getResource(sndPaths[3]).toString());
+        diceKeepSnd = new AudioClip(getClass().getResource(sndPaths[4]).toString());
     }
 
     @FXML
@@ -98,6 +102,9 @@ public class MainScreenController {
         root.setBackground(new Background(new BackgroundFill(Color.rgb(20, 158, 66), CornerRadii.EMPTY, Insets.EMPTY)));
         rollButton.setBackground(new Background(new BackgroundFill(Color.rgb(226, 193, 29), CornerRadii.EMPTY, Insets.EMPTY)));
         doneButton.setBackground(new Background(new BackgroundFill(Color.rgb(226, 29, 62), CornerRadii.EMPTY, Insets.EMPTY)));
+        for (Button button : new Button[]{die1Button, die2Button, die3Button}) {
+            button.setBackground(new Background(new BackgroundFill(Color.rgb(29, 161, 226), CornerRadii.EMPTY, Insets.EMPTY)));
+        }
     }
 
     @FXML
@@ -144,20 +151,19 @@ public class MainScreenController {
             newTurn();
             updateFeedbackLabel(String.format("Player %d turn now!", model.getPlayerTurn() + 1));
         }
+//        game over
         if (model.getCurrentRound() - 1 == MainScreenModel.MAX_ROUNDS) {
             winSnd.play();
             gameOverSnd.play();
 //            user cannot interact anymore
-            for (ButtonBase buttonBase : new ButtonBase[]{rollButton, doneButton, keepDie1Chk, keepDie2Chk, keepDie3Chk}) {
+            for (ButtonBase buttonBase : new ButtonBase[]{rollButton, doneButton, die1Button, die2Button, die3Button}) {
                 buttonBase.setDisable(true);
             }
-            keepDie1Chk.setSelected(false);
-            keepDie2Chk.setSelected(false);
-            keepDie3Chk.setSelected(false);
 //            update feedback label and header
             String winText = String.format("Player %d won!!!", model.getWinner() + 1);
             dieStatusLabel.setText(winText);
             updateFeedbackLabel(winText);
+            playerTurnLabel.setText("");
         } else {
 //            update current round label
             currentRoundLabel.setText(String.format("Current round: %d", model.getCurrentRound()));
@@ -183,30 +189,41 @@ public class MainScreenController {
     @FXML
     public void onKeepDie(ActionEvent actionEvent) {
 
-        CheckBox checkBox = (CheckBox) actionEvent.getSource();
         String feedbackText;
 
         if (resetted) {
             feedbackText = "You must first roll the die!";
-            checkBox.setSelected(false);
         } else {
 
-            boolean selected = checkBox.isSelected();
+            diceKeepSnd.play();
+            Button button = (Button) actionEvent.getSource();
+
+//            effect to give visual feedback on which die was selected
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setHue(0.67);
+            ImageView dieImage;
 
             int index = -1;
-            if (checkBox == keepDie1Chk) {
+            if (button == die1Button) {
+                dieImage = die1Image;
                 index = 0;
-            } else if (checkBox == keepDie2Chk) {
+            } else if (button == die2Button) {
+                dieImage = die2Image;
                 index = 1;
-            } else if (checkBox == keepDie3Chk) {
+            } else {
+                dieImage = die3Image;
                 index = 2;
             }
+
+            boolean selected = dieImage.getEffect() == null;
+
+//            set visual effect on die
+            dieImage.setEffect((selected) ? colorAdjust : null);
 
             model.setSelectedDie(index, selected);
 
             feedbackText = String.format("Player %d decided to %s die %d!",
                     model.getPlayerTurn() + 1, (selected) ? "keep" : "not keep", index + 1);
-
         }
         updateFeedbackLabel(feedbackText);
     }
@@ -220,11 +237,11 @@ public class MainScreenController {
         dieStatusLabel.setText("Roll the die!");
         playerTurnLabel.setText(String.format("Player turn: %d", model.getPlayerTurn() + 1));
         die1Image.setImage(dieImages[6]);
+        die1Image.setEffect(null);
         die2Image.setImage(dieImages[6]);
+        die2Image.setEffect(null);
         die3Image.setImage(dieImages[6]);
-        keepDie1Chk.setSelected(false);
-        keepDie2Chk.setSelected(false);
-        keepDie3Chk.setSelected(false);
+        die3Image.setEffect(null);
         resetted = true;
     }
 
