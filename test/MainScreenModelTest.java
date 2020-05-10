@@ -17,9 +17,8 @@ tests:
     test 19: scoreTiePointsGoToPlayer1
     test 13: winnerIsNotDecidedUntilEndOfGame
     test 18: winnerIsSwitchedToPlayer1
-    pointGetsAwardedToGreatestSameCategoryPointBracketIn3OfAKind
-    pointGetsAwardedToGreatestSameCategoryPointBracketIn2OfAKind
-
+    test 17: pointGetsAwardedToGreatestSameCategoryPointBracketIn3OfAKind
+    test 12:pointGetsAwardedToGreatestSameCategoryPointBracketIn2OfAKind
  */
 
 package test;
