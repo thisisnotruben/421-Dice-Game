@@ -107,7 +107,7 @@
          <graphic>
             <ImageView fx:id="die1Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asset/img/4.png" />
+                  <Image url="@asset/img/4.png" />
                </image>
             </ImageView>
          </graphic>
@@ -116,7 +116,7 @@
          <graphic>
             <ImageView fx:id="die2Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asset/img/2.png" />
+                  <Image url="@asset/img/2.png" />
                </image>
             </ImageView>
          </graphic>
@@ -125,7 +125,7 @@
          <graphic>
             <ImageView fx:id="die3Image" fitHeight="96.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asset/img/1.png" />
+                  <Image url="@asset/img/1.png" />
                </image>
             </ImageView>
          </graphic>
